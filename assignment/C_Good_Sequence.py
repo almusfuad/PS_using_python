@@ -1,20 +1,20 @@
-from collections import Counter
-
 n = int(input())
 arr = list(map(int, input().split()))
 
+count = {}
 
-count = Counter(arr)
+for num in arr:
+    if num in count:
+        count[num] += 1
+    else:
+        count[num] = 1
+
 removals = 0
 
-
-for x in count:
-    if x <= n:
-        if count[x] > x:
-            removals = count[x] - x
-        elif count[x] < x:
-            removals = x - count[x]
-    else:
-        removals = n
+for num, frequency in count.items():
+    if frequency < num:
+        removals += frequency
+    elif frequency > num:
+        removals += frequency - num
 
 print(removals)
